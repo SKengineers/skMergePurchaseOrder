@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="merge_purchase_order_view" model="ir.ui.view">
+            <field name="name">merge_purchase_order_view</field>
+            <field name="model">wizard.merge.purchase.order</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="type"/>
+                            <field name="purchase_order_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="purchase_order_id" domain="[('id', 'in', purchase_order_ids)]" options="{'no_create': True}" required="type in ['merge_cancel', 'merge_delete']" invisible="type not in ['merge_cancel', 'merge_delete']"/>
+                        </group>
+                    </sheet>
+                     <footer>
+                         <button name="action_confirm" string="Confirm " class="btn-secondary" type="object"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+    </record>
+
+    <record id="wizard_merge_purchase_order_action" model="ir.actions.act_window">
+            <field name="name">Action Merge Purchase Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.merge.purchase.order</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+</odoo>
